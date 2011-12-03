@@ -130,5 +130,7 @@ describe 'game of life' do
     other_new_cell = cell.spawn_at(-1, 0)
     third_new_cell = cell.spawn_at(0, 1)
     forth_new_cell = cell.spawn_at(1, 1)
+    world.tick!
+    cell.should be_dead
   end
 end
