@@ -83,9 +83,21 @@ class World
 
   def tick!
     cells.each do |cell|
-      if cell.neighbours.count < 2
+      # First iteration: Ian & Ray implemented the test literally
+      # if cell.neighbours.count < 2
+      #   cell.die!
+      # elsif cell.neighbours.count > 3
+      #   cell.die!
+      # end
+      
+      #Ternary implementation
+      # unless (2..3) === cell.neighbours.count ? true : cell.die!
+      # end
+      
+      #Preferred implmentation
+      unless (2..3) === cell.neighbours.count
         cell.die!
-      end
+      end        
     end
   end
 end
