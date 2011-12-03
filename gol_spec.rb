@@ -86,9 +86,14 @@ describe 'game of life' do
       cell = subject.spawn_at(0, 1)
       subject.neighbours.count.should == 1
     end
+    
+    it "detects a neighbour to the south" do
+      cell = subject.spawn_at(0, -1)
+      subject.neighbours.count.should == 1
+    end
 
-    it "detects a neighbour to the north east" do
-      cell = subject.spawn_at(1, 1)
+    it "detects a neighbour to the east" do
+      cell = subject.spawn_at(1, 0)
       subject.neighbours.count.should == 1
     end
 
@@ -97,8 +102,23 @@ describe 'game of life' do
       subject.neighbours.count.should == 1
     end
 
-    it "detects a neighbour to the east" do
-      cell = subject.spawn_at(1, 0)
+    it "detects a neighbour to the northeast" do
+      cell = subject.spawn_at(1, 1)
+      subject.neighbours.count.should == 1
+    end
+    
+    it "detects neighbour to the northwest" do
+      cell = subject.spawn_at(-1, 1)
+      subject.neighbours.count.should == 1
+    end
+    
+    it "detects a neighbour to the southeast" do
+    	cell = subject.spawn_at(1, -1)
+    	subject.neighbours.count.should == 1
+    end
+    
+    it "detects a neighbour to the southwest" do
+      cell = subject.spawn_at(-1, -1)
       subject.neighbours.count.should == 1
     end
 
