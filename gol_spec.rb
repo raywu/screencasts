@@ -21,6 +21,12 @@ class Cell
   def alive?
     world.cells.include?(self)
   end
+  
+  def alive!
+    # if self.neighbours.count == 3 && self.dead?
+      world.cells += [self]
+    # end
+  end
 
   def neighbours
     @neighbours = []
@@ -83,21 +89,50 @@ class World
 
   def tick!
     cells.each do |cell|
+      
+      #For Rule #4
+      # case 
+      # when cell.neighbours.count < 2
+      #   cell.die!
+      # when cell.neighbours.count > 3
+      #   cell.die!
+      # when cell.neighbours.count == 3 && Cells.include?(cell)
+      #   raise puts "whatevs"
+      #   # cell.revive!
+      # else
+      #   true
+      # end
+
+      #For Rule #4  
+      # if cell.alive?
+      #   unless (2..3) === cell.neighbours.count
+      #     cell.die!
+      #   end        
+      # else #not alive
+      #   if cell.neighbours.count == 3
+      #     cell.revive!
+      #   end
+      # end
+      
       # First iteration: Ian & Ray implemented the test literally
       # if cell.neighbours.count < 2
       #   cell.die!
       # elsif cell.neighbours.count > 3
       #   cell.die!
       # end
+      # 
+      # while cell.neighbours.count == 3 && cell.dead?
+      #   return cell.revive!
+      # end
       
       #Ternary implementation
       # unless (2..3) === cell.neighbours.count ? true : cell.die!
       # end
       
-      #Preferred implmentation
+      #Preferred implmentation for Rule #3
       unless (2..3) === cell.neighbours.count
         cell.die!
-      end        
+      end
     end
   end
 end
@@ -188,5 +223,15 @@ describe 'game of life' do
     forth_new_cell = cell.spawn_at(1, 1)
     world.tick!
     cell.should be_dead
+  end
+  
+  it "Rule #4: Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction." do
+    cell = Cell.new(world)
+    cell.die!
+    new_cell = Cell.new(world).spawn_at(-1, 0)
+    other_new_cell = cell.spawn_at(0,1)
+    third_new_cell = cell.spawn_at(1, 0)
+    world.tick!
+    cell.should be_alive
   end
 end
