@@ -30,8 +30,13 @@ class Cell
         @neighbours << cell
       end
 
-      # Has a cell to the north east
-      if self.x == cell.x - 1 && self.y == cell.y - 1
+      # Has a cell to the south
+      if self.x == cell.x && self.y == cell.y + 1
+        @neighbours << cell
+      end
+
+      # Has a cell to the east
+      if self.x == cell.x - 1 && self.y == cell.y
         @neighbours << cell
       end
 
@@ -40,7 +45,23 @@ class Cell
         @neighbours << cell
       end
 
-      if self.x == cell.x - 1 && self.y == cell.y
+      # Has a cell to the northeast
+      if self.x == cell.x - 1 && self.y == cell.y - 1
+        @neighbours << cell
+      end
+      
+      # Has a cell to the northwest
+      if self.x == cell.x + 1 && self.y == cell.y - 1
+        @neighbours << cell
+      end
+
+      # Has a cell to the southeast
+      if self.x == cell.x - 1 && self.y == cell.y + 1
+        @neighbours << cell
+      end
+
+      # Has a cell to the southwest
+      if self.x == cell.x + 1 && self.y == cell.y + 1
         @neighbours << cell
       end
     end
@@ -69,6 +90,9 @@ class World
   end
 end
 
+# raise puts Cell.new(:waynes).inspect
+# raise puts World.new.inspect
+# raise puts World.cells.inspect
 
 describe 'game of life' do
   let(:world) { World.new }
